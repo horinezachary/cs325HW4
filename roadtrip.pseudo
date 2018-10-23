@@ -4,15 +4,13 @@ x = array[n]; //where x[i] is the distance between hotel i-1 and hotel i
 maxmiles = d;
 function greedyDriving(x,start,end, maxmiles){
   hotels[];
-  milestravelled = 0;
-  for (i = start; milestravelled < maxmiles && i < end; i++){
-    if (x[i] + milestravelled <= maxmiles){
-      milestravelled += x[i];
+  while (start != end){
+    milestravelled = 0;
+    for (i = start; milestravelled < maxmiles && i < end; i++){
+      if (x[i] + milestravelled <= maxmiles){
+        milestravelled += x[i];
+      }
     }
+    hotels.add(i);
   }
-  hotels.add(i);
-  if (i != end){
-    hotels.add(greedyDriving(x,i,end,maxmiles));
-  }
-  return hotels[];
 }
