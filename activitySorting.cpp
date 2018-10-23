@@ -13,8 +13,10 @@ struct activity {
   int start;
   int end;
 };
+
 void mergeSort(activity* arr, int min, int max);
 void merge(activity* arr, int min, int mid, int max);
+string frontIntAppend(string in, int toAdd);
 string activitySorting(int numItems, activity* caseItems);
 
 int main(){
@@ -67,9 +69,10 @@ int main(){
       fileout.append(to_string(caseNumber));
       fileout.append("\n");
       fileout.append(activitySorting(numCaseItems,caseItems));
+      delete[] caseItems;
     }
   }
-  //cout << fileout;
+  cout << fileout;
 
   //Write string to file
   ofstream outfile;
@@ -82,16 +85,28 @@ int main(){
   outfile.close();
 }
 
+string frontIntAppend(string in, int toAdd){
+  string temp = " ";
+  temp.append(to_string(toAdd));
+  temp.append(in);
+  return temp;
+}
+
 string activitySorting(int numItems, activity* caseItems){
   string outString = "";
   string activityString = "";
-  int numSelected = 0;
+  int numSelected = 1;
+  activity lastItem = caseItems[numItems-1];
+  activityString = frontIntAppend(activityString,lastItem.id);
 
-  for (int i = 0; i < numItems; i++) {
-    cout << caseItems[i].id << " " << caseItems[i].start << " " << caseItems[i].end << endl;
+  for (int i = numItems-1; i >= 0; i--) {
+    //cout << caseItems[i].id << " " << caseItems[i].start << " " << caseItems[i].end << endl;
+    if (caseItems[i].end <= lastItem.start) {
+      lastItem = caseItems[i];
+      activityString = frontIntAppend(activityString,lastItem.id);
+      numSelected++;
+    }
   }
-
-
 
   outString.append("Number of activities selected = ");
   outString.append(to_string(numSelected));
