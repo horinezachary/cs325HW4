@@ -17,7 +17,7 @@ struct activity {
 void mergeSort(activity* arr, int min, int max);
 void merge(activity* arr, int min, int mid, int max);
 string frontIntAppend(string in, int toAdd);
-string activitySorting(int numItems, activity* caseItems);
+string activitySelection(int numItems, activity* caseItems);
 
 int main(){
   ifstream inFile;  //set up the file reader and attempt to read the file
@@ -68,7 +68,7 @@ int main(){
       fileout.append("Set: ");
       fileout.append(to_string(caseNumber));
       fileout.append("\n");
-      fileout.append(activitySorting(numCaseItems,caseItems));
+      fileout.append(activitySelection(numCaseItems,caseItems));
       delete[] caseItems;
     }
   }
@@ -92,7 +92,7 @@ string frontIntAppend(string in, int toAdd){
   return temp;
 }
 
-string activitySorting(int numItems, activity* caseItems){
+string activitySelection(int numItems, activity* caseItems){
   string outString = "";
   string activityString = "";
   int numSelected = 1;
