@@ -13,6 +13,8 @@ struct activity {
   int start;
   int end;
 };
+void mergeSort(activity* arr, int min, int max);
+void merge(activity* arr, int min, int mid, int max);
 string activitySorting(int numItems, activity* caseItems);
 
 int main(){
@@ -60,6 +62,7 @@ int main(){
       caseItemCounter++;
       firstCaseLine = true; //reset for next case
 
+      mergeSort(caseItems,0,numCaseItems);
       fileout.append("Set: ");
       fileout.append(to_string(caseNumber));
       fileout.append("\n");
@@ -98,3 +101,42 @@ string activitySorting(int numItems, activity* caseItems){
   return outString;
 }
 
+void mergeSort(activity* arr, int min, int max){  //sorts array by start time, lowest to highest
+  if (max - min > 1){
+    int mid = (min+max)/2;
+    mergeSort(arr,min,mid);
+    mergeSort(arr,mid,max);
+    merge(arr,min,mid,max);
+  }
+}
+
+void merge(activity* arr, int min, int mid, int max){
+  activity* temp = new activity[max-min];
+  int left_low = min;
+  int right_low = mid;
+  int count;
+  for (count = 0; left_low < mid && right_low < max; count++){
+    if (arr[left_low].start > arr[right_low].start){
+      temp[count] = arr[right_low];
+      right_low++;
+    }
+    else{
+      temp[count] = arr[left_low];
+      left_low++;
+    }
+  }
+  while(left_low < mid){
+    temp[count] = arr[left_low];
+    count++;
+    left_low++;
+  }
+  while(right_low < max){
+    temp[count] = arr[right_low];
+    count++;
+    right_low++;
+  }
+  for(int i = 0; i < max-min; i++){
+    arr[min+i] = temp[i];
+  }
+  delete[] temp;
+}
