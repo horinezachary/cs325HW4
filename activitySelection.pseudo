@@ -1,0 +1,23 @@
+//n is the number of items in A
+//A is an array containing the activities to be selected
+function activitySelection(n, A[]){
+  sort(A);
+  numSelected = 0;
+  /*
+   *since it is sorted, the first item on the list is
+   *garanteed to be the latest ending
+  */
+  lastItem = A[0];
+  output <- lastItem;
+  numSelected++;
+
+  //walk through the array and find the next latest ending that doesn't overlap
+  for (i = 0 to n-1) {
+    if (A[i].end <= lastItem.start) {
+      lastItem = A[i];
+      output <- lastItem;
+      numSelected++;
+    }
+  }
+  return output;
+}
